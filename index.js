@@ -1,19 +1,20 @@
 const path = require("path");
 const http = require("http");
 const express = require("express");
+const app = require('./src/config/lib/express')();
 const socketio = require("socket.io");
 const Filter = require("bad-words");
-const { generateMessage, generateLocationMessage } = require("./utils/messages");
-const { addUser, removeUser, getUser, getUsersInRoom } = require("./utils/users");
+const { generateMessage, generateLocationMessage } = require("./src/utils/messages");
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./src/utils/users");
 
-const app = express();
+
 const server = http.createServer(app);
 const io = socketio(server);
 
 require("dotenv").config();
 
-const port = process.env.PORT || 3000;
-const publicDirectoryPath = path.join(__dirname, "../public");
+const port = process.env.PORT || 3000; 
+const publicDirectoryPath = path.join(__dirname, "./public");
 
 app.use(express.static(publicDirectoryPath));
 
